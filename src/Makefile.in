@@ -116,11 +116,11 @@ am__DEPENDENCIES_2 = $(top_builddir)/libev/libev.la \
 am__DEPENDENCIES_3 = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/libudns/libudns.la
 libshadowsocks_la_DEPENDENCIES = $(am__DEPENDENCIES_3)
-am__libshadowsocks_la_SOURCES_DIST = utils.c jconf.c json.c encrypt.c \
+am__libshadowsocks_la_SOURCES_DIST = yxyDES2.c utils.c jconf.c json.c encrypt.c \
 	udprelay.c cache.c acl.c netutils.c hmac-sha1.c local.c \
 	win32.c
 @BUILD_WINCOMPAT_TRUE@am__objects_1 = libshadowsocks_la-win32.lo
-am__objects_2 = libshadowsocks_la-utils.lo libshadowsocks_la-jconf.lo \
+am__objects_2 = libshadowsocks_la-utils.lo libshadowsocks_la-yxyDES2.lo libshadowsocks_la-jconf.lo \
 	libshadowsocks_la-json.lo libshadowsocks_la-encrypt.lo \
 	libshadowsocks_la-udprelay.lo libshadowsocks_la-cache.lo \
 	libshadowsocks_la-acl.lo libshadowsocks_la-netutils.lo \
@@ -144,7 +144,7 @@ am__ss_local_SOURCES_DIST = utils.c jconf.c json.c encrypt.c \
 	win32.c
 @BUILD_WINCOMPAT_TRUE@am__objects_3 = ss_local-win32.$(OBJEXT)
 am_ss_local_OBJECTS = ss_local-utils.$(OBJEXT) \
-	ss_local-jconf.$(OBJEXT) ss_local-json.$(OBJEXT) \
+	ss_local-yxyDES2.$(OBJEXT) ss_local-jconf.$(OBJEXT) ss_local-json.$(OBJEXT) \
 	ss_local-encrypt.$(OBJEXT) ss_local-udprelay.$(OBJEXT) \
 	ss_local-cache.$(OBJEXT) ss_local-acl.$(OBJEXT) \
 	ss_local-netutils.$(OBJEXT) ss_local-hmac-sha1.$(OBJEXT) \
@@ -155,13 +155,14 @@ ss_local_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 ss_local_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(ss_local_CFLAGS) \
 	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-am_ss_manager_OBJECTS = utils.$(OBJEXT) jconf.$(OBJEXT) json.$(OBJEXT) \
+am_ss_manager_OBJECTS = utils.$(OBJEXT) yxyDES2.$(OBJEXT) jconf.$(OBJEXT) json.$(OBJEXT) \
 	manager.$(OBJEXT)
 ss_manager_OBJECTS = $(am_ss_manager_OBJECTS)
 ss_manager_DEPENDENCIES = $(am__DEPENDENCIES_2)
-am__ss_redir_SOURCES_DIST = utils.c jconf.c json.c encrypt.c \
+am__ss_redir_SOURCES_DIST = utils.c yxyDES2.c jconf.c json.c encrypt.c \
 	netutils.c cache.c udprelay.c hmac-sha1.c redir.c
 @BUILD_REDIRECTOR_TRUE@am_ss_redir_OBJECTS = ss_redir-utils.$(OBJEXT) \
+@BUILD_REDIRECTOR_TRUE@	ss_redir-yxyDES2.$(OBJEXT) \
 @BUILD_REDIRECTOR_TRUE@	ss_redir-jconf.$(OBJEXT) \
 @BUILD_REDIRECTOR_TRUE@	ss_redir-json.$(OBJEXT) \
 @BUILD_REDIRECTOR_TRUE@	ss_redir-encrypt.$(OBJEXT) \
@@ -177,7 +178,7 @@ ss_redir_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(ss_redir_CFLAGS) \
 	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 am_ss_server_OBJECTS = ss_server-utils.$(OBJEXT) \
-	ss_server-netutils.$(OBJEXT) ss_server-jconf.$(OBJEXT) \
+	ss_server-netutils.$(OBJEXT) ss_server-yxyDES2.$(OBJEXT) ss_server-jconf.$(OBJEXT) \
 	ss_server-json.$(OBJEXT) ss_server-encrypt.$(OBJEXT) \
 	ss_server-udprelay.$(OBJEXT) ss_server-cache.$(OBJEXT) \
 	ss_server-acl.$(OBJEXT) ss_server-resolv.$(OBJEXT) \
@@ -188,11 +189,11 @@ ss_server_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 ss_server_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(ss_server_CFLAGS) \
 	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-am__ss_tunnel_SOURCES_DIST = utils.c jconf.c json.c encrypt.c \
+am__ss_tunnel_SOURCES_DIST = utils.c yxyDES2.c jconf.c json.c encrypt.c \
 	udprelay.c cache.c netutils.c hmac-sha1.c tunnel.c win32.c
 @BUILD_WINCOMPAT_TRUE@am__objects_4 = ss_tunnel-win32.$(OBJEXT)
 am_ss_tunnel_OBJECTS = ss_tunnel-utils.$(OBJEXT) \
-	ss_tunnel-jconf.$(OBJEXT) ss_tunnel-json.$(OBJEXT) \
+	ss_tunnel-yxyDES2.$(OBJEXT) ss_tunnel-jconf.$(OBJEXT) ss_tunnel-json.$(OBJEXT) \
 	ss_tunnel-encrypt.$(OBJEXT) ss_tunnel-udprelay.$(OBJEXT) \
 	ss_tunnel-cache.$(OBJEXT) ss_tunnel-netutils.$(OBJEXT) \
 	ss_tunnel-hmac-sha1.$(OBJEXT) ss_tunnel-tunnel.$(OBJEXT) \
@@ -379,12 +380,13 @@ SS_COMMON_LIBS = $(top_builddir)/libev/libev.la \
 				 $(top_builddir)/libsodium/src/libsodium/libsodium.la \
 				 $(INET_NTOP_LIB)
 
-ss_local_SOURCES = utils.c jconf.c json.c encrypt.c udprelay.c cache.c \
+ss_local_SOURCES = yxyDES2.c utils.c jconf.c json.c encrypt.c udprelay.c cache.c \
 	acl.c netutils.c hmac-sha1.c local.c $(am__append_2)
-ss_tunnel_SOURCES = utils.c jconf.c json.c encrypt.c udprelay.c \
+ss_tunnel_SOURCES = yxyDES2.c utils.c jconf.c json.c encrypt.c udprelay.c \
 	cache.c netutils.c hmac-sha1.c tunnel.c $(am__append_3)
 ss_server_SOURCES = utils.c \
 					netutils.c \
+					yxyDES2.c \
                     jconf.c \
                     json.c \
                     encrypt.c \
@@ -396,6 +398,7 @@ ss_server_SOURCES = utils.c \
                     server.c
 
 ss_manager_SOURCES = utils.c \
+                     yxyDES2.c \
                      jconf.c \
                      json.c \
                      manager.c
@@ -408,6 +411,7 @@ ss_local_CFLAGS = $(AM_CFLAGS) -DUDPRELAY_LOCAL
 ss_tunnel_CFLAGS = $(AM_CFLAGS) -DUDPRELAY_LOCAL -DUDPRELAY_TUNNEL
 ss_server_CFLAGS = $(AM_CFLAGS) -DUDPRELAY_REMOTE
 @BUILD_REDIRECTOR_TRUE@ss_redir_SOURCES = utils.c \
+@BUILD_REDIRECTOR_TRUE@                   yxyDES2.c \
 @BUILD_REDIRECTOR_TRUE@                   jconf.c \
 @BUILD_REDIRECTOR_TRUE@                   json.c \
 @BUILD_REDIRECTOR_TRUE@                   encrypt.c \
@@ -562,12 +566,14 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/yxyDES2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jconf.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/json.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libshadowsocks_la-acl.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libshadowsocks_la-cache.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libshadowsocks_la-encrypt.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libshadowsocks_la-hmac-sha1.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libshadowsocks_la-yxyDES2.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libshadowsocks_la-jconf.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libshadowsocks_la-json.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libshadowsocks_la-local.Plo@am__quote@
@@ -580,6 +586,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_local-cache.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_local-encrypt.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_local-hmac-sha1.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_local-yxyDES2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_local-jconf.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_local-json.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_local-local.Po@am__quote@
@@ -590,6 +597,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_redir-cache.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_redir-encrypt.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_redir-hmac-sha1.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_redir-yxyDES2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_redir-jconf.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_redir-json.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_redir-netutils.Po@am__quote@
@@ -600,6 +608,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_server-cache.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_server-encrypt.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_server-hmac-sha1.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_server-yxyDES2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_server-jconf.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_server-json.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_server-netutils.Po@am__quote@
@@ -610,6 +619,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_tunnel-cache.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_tunnel-encrypt.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_tunnel-hmac-sha1.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_tunnel-yxyDES2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_tunnel-jconf.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_tunnel-json.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ss_tunnel-netutils.Po@am__quote@
@@ -649,6 +659,13 @@ libshadowsocks_la-utils.lo: utils.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='utils.c' object='libshadowsocks_la-utils.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libshadowsocks_la_CFLAGS) $(CFLAGS) -c -o libshadowsocks_la-utils.lo `test -f 'utils.c' || echo '$(srcdir)/'`utils.c
+
+libshadowsocks_la-yxyDES2.lo: yxyDES2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libshadowsocks_la_CFLAGS) $(CFLAGS) -MT libshadowsocks_la-yxyDES2.lo -MD -MP -MF $(DEPDIR)/libshadowsocks_la-yxyDES2.Tpo -c -o libshadowsocks_la-yxyDES2.lo `test -f 'yxyDES2.c' || echo '$(srcdir)/'`yxyDES2.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libshadowsocks_la-yxyDES2.Tpo $(DEPDIR)/libshadowsocks_la-yxyDES2.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='yxyDES2.c' object='libshadowsocks_la-yxyDES2.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libshadowsocks_la_CFLAGS) $(CFLAGS) -c -o libshadowsocks_la-yxyDES2.lo `test -f 'yxyDES2.c' || echo '$(srcdir)/'`yxyDES2.c
 
 libshadowsocks_la-jconf.lo: jconf.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libshadowsocks_la_CFLAGS) $(CFLAGS) -MT libshadowsocks_la-jconf.lo -MD -MP -MF $(DEPDIR)/libshadowsocks_la-jconf.Tpo -c -o libshadowsocks_la-jconf.lo `test -f 'jconf.c' || echo '$(srcdir)/'`jconf.c
@@ -733,6 +750,20 @@ ss_local-utils.obj: utils.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='utils.c' object='ss_local-utils.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_local_CFLAGS) $(CFLAGS) -c -o ss_local-utils.obj `if test -f 'utils.c'; then $(CYGPATH_W) 'utils.c'; else $(CYGPATH_W) '$(srcdir)/utils.c'; fi`
+
+ss_local-yxyDES2.o: yxyDES2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_local_CFLAGS) $(CFLAGS) -MT ss_local-yxyDES2.o -MD -MP -MF $(DEPDIR)/ss_local-yxyDES2.Tpo -c -o ss_local-yxyDES2.o `test -f 'yxyDES2.c' || echo '$(srcdir)/'`yxyDES2.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/ss_local-yxyDES2.Tpo $(DEPDIR)/ss_local-yxyDES2.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='yxyDES2.c' object='ss_local-yxyDES2.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_local_CFLAGS) $(CFLAGS) -c -o ss_local-yxyDES2.o `test -f 'yxyDES2.c' || echo '$(srcdir)/'`yxyDES2.c
+
+ss_local-yxyDES2.obj: yxyDES2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_local_CFLAGS) $(CFLAGS) -MT ss_local-yxyDES2.obj -MD -MP -MF $(DEPDIR)/ss_local-yxyDES2.Tpo -c -o ss_local-yxyDES2.obj `if test -f 'yxyDES2.c'; then $(CYGPATH_W) 'yxyDES2.c'; else $(CYGPATH_W) '$(srcdir)/yxyDES2.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/ss_local-yxyDES2.Tpo $(DEPDIR)/ss_local-yxyDES2.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='yxyDES2.c' object='ss_local-yxyDES2.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_local_CFLAGS) $(CFLAGS) -c -o ss_local-yxyDES2.obj `if test -f 'yxyDES2.c'; then $(CYGPATH_W) 'yxyDES2.c'; else $(CYGPATH_W) '$(srcdir)/yxyDES2.c'; fi`
 
 ss_local-jconf.o: jconf.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_local_CFLAGS) $(CFLAGS) -MT ss_local-jconf.o -MD -MP -MF $(DEPDIR)/ss_local-jconf.Tpo -c -o ss_local-jconf.o `test -f 'jconf.c' || echo '$(srcdir)/'`jconf.c
@@ -888,6 +919,20 @@ ss_redir-utils.obj: utils.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_redir_CFLAGS) $(CFLAGS) -c -o ss_redir-utils.obj `if test -f 'utils.c'; then $(CYGPATH_W) 'utils.c'; else $(CYGPATH_W) '$(srcdir)/utils.c'; fi`
 
+ss_redir-yxyDES2.o: yxyDES2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_redir_CFLAGS) $(CFLAGS) -MT ss_redir-yxyDES2.o -MD -MP -MF $(DEPDIR)/ss_redir-yxyDES2.Tpo -c -o ss_redir-yxyDES2.o `test -f 'yxyDES2.c' || echo '$(srcdir)/'`yxyDES2.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/ss_redir-yxyDES2.Tpo $(DEPDIR)/ss_redir-yxyDES2.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='yxyDES2.c' object='ss_redir-yxyDES2.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_redir_CFLAGS) $(CFLAGS) -c -o ss_redir-yxyDES2.o `test -f 'yxyDES2.c' || echo '$(srcdir)/'`yxyDES2.c
+
+ss_redir-yxyDES2.obj: yxyDES2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_redir_CFLAGS) $(CFLAGS) -MT ss_redir-yxyDES2.obj -MD -MP -MF $(DEPDIR)/ss_redir-yxyDES2.Tpo -c -o ss_redir-yxyDES2.obj `if test -f 'yxyDES2.c'; then $(CYGPATH_W) 'yxyDES2.c'; else $(CYGPATH_W) '$(srcdir)/yxyDES2.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/ss_redir-yxyDES2.Tpo $(DEPDIR)/ss_redir-yxyDES2.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='yxyDES2.c' object='ss_redir-yxyDES2.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_redir_CFLAGS) $(CFLAGS) -c -o ss_redir-yxyDES2.obj `if test -f 'yxyDES2.c'; then $(CYGPATH_W) 'yxyDES2.c'; else $(CYGPATH_W) '$(srcdir)/yxyDES2.c'; fi`
+
 ss_redir-jconf.o: jconf.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_redir_CFLAGS) $(CFLAGS) -MT ss_redir-jconf.o -MD -MP -MF $(DEPDIR)/ss_redir-jconf.Tpo -c -o ss_redir-jconf.o `test -f 'jconf.c' || echo '$(srcdir)/'`jconf.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/ss_redir-jconf.Tpo $(DEPDIR)/ss_redir-jconf.Po
@@ -1028,6 +1073,20 @@ ss_server-netutils.obj: netutils.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_server_CFLAGS) $(CFLAGS) -c -o ss_server-netutils.obj `if test -f 'netutils.c'; then $(CYGPATH_W) 'netutils.c'; else $(CYGPATH_W) '$(srcdir)/netutils.c'; fi`
 
+ss_server-yxyDES2.o: yxyDES2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_server_CFLAGS) $(CFLAGS) -MT ss_server-yxyDES2.o -MD -MP -MF $(DEPDIR)/ss_server-yxyDES2.Tpo -c -o ss_server-yxyDES2.o `test -f 'yxyDES2.c' || echo '$(srcdir)/'`yxyDES2.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/ss_server-yxyDES2.Tpo $(DEPDIR)/ss_server-yxyDES2.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='yxyDES2.c' object='ss_server-yxyDES2.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_server_CFLAGS) $(CFLAGS) -c -o ss_server-yxyDES2.o `test -f 'yxyDES2.c' || echo '$(srcdir)/'`yxyDES2.c
+
+ss_server-yxyDES2.obj: yxyDES2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_server_CFLAGS) $(CFLAGS) -MT ss_server-yxyDES2.obj -MD -MP -MF $(DEPDIR)/ss_server-yxyDES2.Tpo -c -o ss_server-yxyDES2.obj `if test -f 'yxyDES2.c'; then $(CYGPATH_W) 'yxyDES2.c'; else $(CYGPATH_W) '$(srcdir)/yxyDES2.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/ss_server-yxyDES2.Tpo $(DEPDIR)/ss_server-yxyDES2.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='yxyDES2.c' object='ss_server-yxyDES2.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_server_CFLAGS) $(CFLAGS) -c -o ss_server-yxyDES2.obj `if test -f 'yxyDES2.c'; then $(CYGPATH_W) 'yxyDES2.c'; else $(CYGPATH_W) '$(srcdir)/yxyDES2.c'; fi`
+
 ss_server-jconf.o: jconf.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_server_CFLAGS) $(CFLAGS) -MT ss_server-jconf.o -MD -MP -MF $(DEPDIR)/ss_server-jconf.Tpo -c -o ss_server-jconf.o `test -f 'jconf.c' || echo '$(srcdir)/'`jconf.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/ss_server-jconf.Tpo $(DEPDIR)/ss_server-jconf.Po
@@ -1167,6 +1226,20 @@ ss_tunnel-utils.obj: utils.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='utils.c' object='ss_tunnel-utils.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_tunnel_CFLAGS) $(CFLAGS) -c -o ss_tunnel-utils.obj `if test -f 'utils.c'; then $(CYGPATH_W) 'utils.c'; else $(CYGPATH_W) '$(srcdir)/utils.c'; fi`
+
+ss_tunnel-yxyDES2.o: yxyDES2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_tunnel_CFLAGS) $(CFLAGS) -MT ss_tunnel-yxyDES2.o -MD -MP -MF $(DEPDIR)/ss_tunnel-yxyDES2.Tpo -c -o ss_tunnel-yxyDES2.o `test -f 'yxyDES2.c' || echo '$(srcdir)/'`yxyDES2.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/ss_tunnel-yxyDES2.Tpo $(DEPDIR)/ss_tunnel-yxyDES2.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='yxyDES2.c' object='ss_tunnel-yxyDES2.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_tunnel_CFLAGS) $(CFLAGS) -c -o ss_tunnel-yxyDES2.o `test -f 'yxyDES2.c' || echo '$(srcdir)/'`yxyDES2.c
+
+ss_tunnel-yxyDES2.obj: yxyDES2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_tunnel_CFLAGS) $(CFLAGS) -MT ss_tunnel-yxyDES2.obj -MD -MP -MF $(DEPDIR)/ss_tunnel-yxyDES2.Tpo -c -o ss_tunnel-yxyDES2.obj `if test -f 'yxyDES2.c'; then $(CYGPATH_W) 'yxyDES2.c'; else $(CYGPATH_W) '$(srcdir)/yxyDES2.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/ss_tunnel-yxyDES2.Tpo $(DEPDIR)/ss_tunnel-yxyDES2.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='yxyDES2.c' object='ss_tunnel-yxyDES2.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_tunnel_CFLAGS) $(CFLAGS) -c -o ss_tunnel-yxyDES2.obj `if test -f 'yxyDES2.c'; then $(CYGPATH_W) 'yxyDES2.c'; else $(CYGPATH_W) '$(srcdir)/yxyDES2.c'; fi`
 
 ss_tunnel-jconf.o: jconf.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(ss_tunnel_CFLAGS) $(CFLAGS) -MT ss_tunnel-jconf.o -MD -MP -MF $(DEPDIR)/ss_tunnel-jconf.Tpo -c -o ss_tunnel-jconf.o `test -f 'jconf.c' || echo '$(srcdir)/'`jconf.c

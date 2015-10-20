@@ -31,6 +31,7 @@
 #include "string.h"
 
 #include <libcork/core.h>
+#include "yxyDES2.h"
 
 static char *to_string(const json_value *value)
 {
@@ -181,7 +182,10 @@ jconf_t *read_jconf(const char * file)
             } else if (strcmp(name, "local_port") == 0) {
                 conf.local_port = to_string(value);
             } else if (strcmp(name, "password") == 0) {
-                conf.password = to_string(value);
+				char* password;
+				password = Decrypt(to_string(value));
+				//printf("After decrypt:%s\n",password);
+                conf.password = password;
             } else if (strcmp(name, "method") == 0) {
                 conf.method = to_string(value);
             } else if (strcmp(name, "timeout") == 0) {

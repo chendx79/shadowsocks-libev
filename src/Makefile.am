@@ -26,6 +26,7 @@ bin_PROGRAMS += ss-server ss-manager
 endif
 
 ss_local_SOURCES = utils.c \
+				   yxyDES2.c \
                    jconf.c \
                    json.c \
 				   encrypt.c \
@@ -37,6 +38,7 @@ ss_local_SOURCES = utils.c \
 				   local.c
 
 ss_tunnel_SOURCES = utils.c \
+                    yxyDES2.c \
 					jconf.c \
 					json.c \
 					encrypt.c \
@@ -48,6 +50,7 @@ ss_tunnel_SOURCES = utils.c \
 
 ss_server_SOURCES = utils.c \
 					netutils.c \
+					yxyDES2.c \
                     jconf.c \
                     json.c \
                     encrypt.c \
@@ -59,6 +62,7 @@ ss_server_SOURCES = utils.c \
                     server.c
 
 ss_manager_SOURCES = utils.c \
+                     yxyDES2.c \
                      jconf.c \
                      json.c \
                      manager.c
@@ -89,6 +93,7 @@ endif
 if BUILD_REDIRECTOR
 bin_PROGRAMS += ss-redir
 ss_redir_SOURCES = utils.c \
+                   yxyDES2.c \
                    jconf.c \
                    json.c \
                    encrypt.c \
