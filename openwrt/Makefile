@@ -6,7 +6,7 @@ PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 PKG_SOURCE_URL:=https://github.com/chendx79/shadowsocks-libev/archive
 PKG_SOURCE:=v$(PKG_VERSION).tar.gz
-PKG_MAINTAINER:=Max Lv <chendx79@hotmail.com>
+PKG_MAINTAINER:=Derek Chen <chendx79@hotmail.com>
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)
 
